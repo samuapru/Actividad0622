@@ -8,9 +8,9 @@
 public class CalendarioBasico
 {
     // instance variables
-    private int ano;
-    private int mes;
-    private int dia;
+    private DisplayDosCaracteres aAno;
+    private DisplayDosCaracteres aMes;
+    private DisplayDosCaracteres aDia;
 
     /**
      * Constructor for objects of class CalendarioBasico
@@ -18,19 +18,19 @@ public class CalendarioBasico
     public CalendarioBasico()
     {
         // initialise instance variables
-        ano = 1;
-        mes = 1;
-        dia = 1;
+        aAno = new DisplayDosCaracteres(100);
+        aMes = new DisplayDosCaracteres(13);
+        aDia = new DisplayDosCaracteres(31);
     }
 
     /**
      * Fijar fecha
      */
-    public void fijarFecha (int aAno, int aMes, int aDia)
+    public void fijarFecha (int bAno, int bMes, int bDia)
     {
-        ano = aAno;
-        mes = aMes;
-        dia = aDia;  
+        aAno.setValorAlmacenado(bAno);
+        aMes.setValorAlmacenado(bMes);
+        aDia.setValorAlmacenado(bDia);
     }
 
     /**
@@ -38,35 +38,20 @@ public class CalendarioBasico
      */
     public String obtenerFecha()
     {
-        String textoADevolver = "";
-        String parte1 = dia + "";
-        String parte2 = mes + "";
-        String parte3 = ano + "";
-        if (parte1.length() < 2) {
-            parte1 = "0" + parte1;  
-        }
-        if (mes < 10) {
-            parte2 = "0" + parte2;
-
-            if (ano < 10) {
-                parte3 = "0" + parte3;
-            }
-            textoADevolver = parte1 + "-" + parte2 + "-" + parte3;
-            
-        }
-        return textoADevolver;
+        String fechaDevuelta;
+        fechaDevuelta = aDia.getTextoDelDisplay() + "-" + aMes.getTextoDelDisplay() + "-" + aAno.getTextoDelDisplay();
+        return fechaDevuelta;
     }
     
     public void avanzarfecha()
     {
-        dia = dia +1;
-        if (dia == 31){
-            dia = 1;
-            mes = mes +1;
-            if (mes == 13) {
-                mes = 1;
-                ano += 1;
-            }
+        aDia.incrementaValorAlmacenado();
+        if (aDia.getValorAlmacenado() == 1){
+            aMes.incrementaValorAlmacenado();
+        if (aMes.getValorAlmacenado() == 1){
+            aAno.incrementaValorAlmacenado();
+        }
     }
-}
+        
+    }
 }
